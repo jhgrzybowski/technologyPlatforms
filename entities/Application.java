@@ -65,20 +65,27 @@ public class Application {
                     System.out.print("Which brewery you want to delete: ");
                     String breweryToDelete = input.next();
                     Brewery particular2 = breweryRepository.findParticularBrewery(breweryToDelete);
-                    breweryRepository.burnDown(particular2);
-                    System.out.println("Brewery was burned down.");
+                    if(particular2 == null) System.out.println("There is no brewery named like this");
+                    else{
+                        breweryRepository.burnDown(particular2);
+                        System.out.println("Brewery was burned down.");
+                    }
                     break;
                 case 6:
                     System.out.print("Which brewery are we talking about: ");
                     String breweryToShow = input.next();
                     Brewery particular3 = breweryRepository.findParticularBrewery(breweryToShow);
-                    System.out.print("What price are we talking about: ");
-                    int priceToShow = input.nextInt();
-                    List<Beer> beersToShow = beerRepository.findAllLessExpensiveThan(priceToShow, particular3);
-                    for(int i = 0; i < beersToShow.size(); i++) System.out.println(beersToShow.get(i));
+                    if(particular3 == null) System.out.println("There is no brewery named like this");
+                    else{
+                        System.out.print("What price are we talking about: ");
+                        int priceToShow = input.nextInt();
+                        List<Beer> beersToShow = beerRepository.findAllLessExpensiveThan(priceToShow, particular3);
+                        for(int i = 0; i < beersToShow.size(); i++) System.out.println(beersToShow.get(i));
+                    }
                     break;
                 default:
                     System.out.println("Choose one of the available options.");
+                    break;
             }
             System.out.println("What do you want to do?\n1. Add beer\n2. Add brewery\n" +
                     "3. Show all beers with less price than\n4. Show all breweries and beers\n" +
@@ -86,5 +93,4 @@ public class Application {
             inp = input.nextInt();
         }
     }
-
 }
